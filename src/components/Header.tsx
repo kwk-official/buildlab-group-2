@@ -28,40 +28,34 @@ export default function Header() {
   }, [showUserPicker]);
 
   return (
-    <header className="sticky top-0 z-40 border-b-4 border-kwk-yellow bg-kwk-black text-white shadow-md">
-      <div className="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="group flex items-center gap-2.5 text-lg font-extrabold tracking-tight text-white sm:text-xl"
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-kwk-green to-kwk-yellow text-lg shadow-sm transition group-hover:rotate-3">
-            🏘️
-          </span>
-          <span className="hidden sm:inline">Community Hub</span>
+    <header className="border-b border-gray-200 bg-white">
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+        <Link href="/" className="text-xl font-bold text-gray-900">
+          🏘️ Community Hub
         </Link>
 
-        <nav className="flex items-center gap-2 sm:gap-3">
+        <nav className="flex items-center gap-4">
           {user ? (
             <>
               <Link
                 href="/profile"
-                className="rounded-lg px-3 py-2 text-sm font-semibold text-kwk-yellow transition hover:bg-kwk-yellow hover:text-kwk-black"
+                className="text-sm text-gray-600 hover:text-gray-900"
               >
                 Profile
               </Link>
-              <div className="hidden items-center gap-2 rounded-full bg-white/10 py-1 pl-1 pr-3 sm:flex">
+              <div className="flex items-center gap-2">
                 <img
                   src={user.image}
                   alt={user.name}
-                  className="h-8 w-8 rounded-full ring-2 ring-white"
+                  className="h-8 w-8 rounded-full"
                 />
-                <span className="text-sm font-semibold text-white">
+                <span className="text-sm font-medium text-gray-700">
                   {user.name}
                 </span>
               </div>
               <button
                 onClick={logout}
-                className="rounded-xl border-2 border-white bg-transparent px-3 py-2 text-sm font-semibold text-white transition hover:border-kwk-pink hover:bg-kwk-pink hover:text-kwk-black"
+                className="rounded-md bg-gray-100 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-200"
               >
                 Log out
               </button>
@@ -70,13 +64,13 @@ export default function Header() {
             <div className="relative" ref={pickerRef}>
               <button
                 onClick={() => setShowUserPicker(!showUserPicker)}
-                className="rounded-xl border-2 border-kwk-yellow bg-kwk-yellow px-4 py-2 text-sm font-bold text-kwk-black shadow-sm transition hover:bg-kwk-pink hover:shadow-md"
+                className="rounded-md bg-blue-600 px-4 py-1.5 text-sm font-medium text-white hover:bg-blue-700"
               >
                 Log in
               </button>
               {showUserPicker && (
-                <div className="absolute right-0 top-12 z-10 w-64 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl shadow-slate-900/10">
-                  <p className="mb-2 px-2 pt-1 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div className="absolute right-0 top-10 z-10 w-56 rounded-lg border border-gray-200 bg-white p-2 shadow-lg">
+                  <p className="mb-2 px-2 text-xs font-medium text-gray-500">
                     Pick a user (dev mode)
                   </p>
                   {SEED_USERS.map((seedUser) => (
@@ -86,7 +80,7 @@ export default function Header() {
                         login(seedUser);
                         setShowUserPicker(false);
                       }}
-                      className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-slate-700 transition hover:bg-kwk-luna hover:text-kwk-space"
+                      className="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-left text-sm hover:bg-gray-100"
                     >
                       <img
                         src={seedUser.image}

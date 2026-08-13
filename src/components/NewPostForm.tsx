@@ -73,7 +73,7 @@ export default function NewPostForm({ communityId }: NewPostFormProps) {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 px-4 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
           onClick={() => setOpen(false)}
           role="presentation"
         >
@@ -81,40 +81,28 @@ export default function NewPostForm({ communityId }: NewPostFormProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="new-post-title"
-            className="w-full max-w-lg rounded-2xl border border-white/20 bg-white p-6 shadow-2xl"
+            className="w-full max-w-lg rounded-xl bg-white p-6 shadow-xl"
             onClick={(event) => event.stopPropagation()}
           >
-            <h2
-              id="new-post-title"
-              className="mb-5 text-xl font-bold text-slate-900"
-            >
+            <h2 id="new-post-title" className="mb-4 text-xl font-semibold text-gray-900">
               Create a new post
             </h2>
 
             {!ready ? (
-              <p className="text-sm text-gray-600">
-                Checking your sign-in status...
-              </p>
+              <p className="text-sm text-gray-600">Checking your sign-in status...</p>
             ) : !user ? (
               <div className="space-y-4">
                 <p className="text-sm text-gray-600">
                   Log in from the header to create a post in this community.
                 </p>
                 <div className="flex justify-end">
-                  <Button
-                    label="Close"
-                    variant="secondary"
-                    onClick={() => setOpen(false)}
-                  />
+                  <Button label="Close" variant="secondary" onClick={() => setOpen(false)} />
                 </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label
-                    htmlFor="post-title"
-                    className="block text-sm font-bold text-slate-700"
-                  >
+                  <label htmlFor="post-title" className="block text-sm font-medium text-gray-900">
                     Title
                   </label>
                   <input
@@ -123,16 +111,13 @@ export default function NewPostForm({ communityId }: NewPostFormProps) {
                     type="text"
                     value={title}
                     onChange={(event) => setTitle(event.target.value)}
-                    className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-kwk-blue focus:bg-white focus:ring-4 focus:ring-kwk-luna"
+                    className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="Share an update with the community"
                   />
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="post-content"
-                    className="block text-sm font-bold text-slate-700"
-                  >
+                  <label htmlFor="post-content" className="block text-sm font-medium text-gray-900">
                     Content
                   </label>
                   <textarea
@@ -141,7 +126,7 @@ export default function NewPostForm({ communityId }: NewPostFormProps) {
                     rows={5}
                     value={content}
                     onChange={(event) => setContent(event.target.value)}
-                    className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-kwk-blue focus:bg-white focus:ring-4 focus:ring-kwk-luna"
+                    className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="Write your post here..."
                   />
                 </div>
@@ -149,16 +134,8 @@ export default function NewPostForm({ communityId }: NewPostFormProps) {
                 {error && <p className="text-sm text-red-600">{error}</p>}
 
                 <div className="flex justify-end gap-3 pt-2">
-                  <Button
-                    label="Cancel"
-                    variant="secondary"
-                    onClick={() => setOpen(false)}
-                  />
-                  <Button
-                    label="Create Post"
-                    type="submit"
-                    disabled={pending}
-                  />
+                  <Button label="Cancel" variant="secondary" onClick={() => setOpen(false)} />
+                  <Button label="Create Post" type="submit" disabled={pending} />
                 </div>
               </form>
             )}
