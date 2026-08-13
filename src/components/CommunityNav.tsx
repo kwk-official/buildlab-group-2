@@ -7,26 +7,23 @@ type CommunityNavProps = {
 
 export default function CommunityNav({ slug, activeTab }: CommunityNavProps) {
   return (
-    <nav
-      aria-label="Community navigation"
-      className="mb-8 flex w-fit gap-1 rounded-xl border border-slate-200 bg-white p-1 shadow-sm"
-    >
+    <nav className="mb-8 flex gap-4 border-b border-gray-200 pb-4">
       <Link
         href={`/${slug}`}
-        className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
+        className={`text-sm font-medium ${
           activeTab === "home"
-            ? "bg-kwk-purple text-white shadow-sm"
-            : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+            ? "text-blue-600"
+            : "text-gray-500 hover:text-gray-900"
         }`}
       >
         Home
       </Link>
       <Link
         href={`/${slug}/events`}
-        className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
+        className={`text-sm font-medium ${
           activeTab === "events"
-            ? "bg-kwk-purple text-white shadow-sm"
-            : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+            ? "text-blue-600"
+            : "text-gray-500 hover:text-gray-900"
         }`}
       >
         Events
