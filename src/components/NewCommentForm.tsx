@@ -53,12 +53,20 @@ export default function NewCommentForm({ postId }: NewCommentFormProps) {
   }
 
   if (!ready) {
-    return <p className="text-sm text-gray-600">Checking your sign-in status...</p>;
+    return (
+      <p className="text-sm text-slate-600">Checking your sign-in status...</p>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 rounded-lg border border-gray-200 bg-white p-4">
-      <label htmlFor="comment-text" className="block text-sm font-medium text-gray-900">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm"
+    >
+      <label
+        htmlFor="comment-text"
+        className="block text-sm font-bold text-slate-900"
+      >
         Add a comment
       </label>
 
@@ -68,7 +76,7 @@ export default function NewCommentForm({ postId }: NewCommentFormProps) {
         rows={4}
         value={text}
         onChange={(event) => setText(event.target.value)}
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        className="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-kwk-blue focus:bg-white focus:ring-4 focus:ring-kwk-luna"
         placeholder="Write your comment..."
         disabled={pending}
       />

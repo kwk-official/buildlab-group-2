@@ -41,8 +41,8 @@ export default async function EventsPage({ params }: CommunityPageProps) {
     .where(eq(events.communityId, community.id))
     .orderBy(asc(events.startTime));
   const eventIds = communityEvents.map((event) => event.id);
-  const rsvps = 
-    eventIds.length == 0
+  const rsvps =
+    eventIds.length === 0
       ? []
       : await db
           .select()
@@ -56,35 +56,33 @@ export default async function EventsPage({ params }: CommunityPageProps) {
   }
 
   const currentUserRSVPEventIds = new Set(
-  rsvps
-    .filter((rsvp) => rsvp.userId === currUserId)
-    .map((rsvp) => rsvp.eventId),
+    rsvps
+      .filter((rsvp) => rsvp.userId === currUserId)
+      .map((rsvp) => rsvp.eventId)
   );
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">
-          {community.name} — Events
-        </h1>
-        <p className="mt-2 text-gray-600">
-          Upcoming events for {community.name}.
+      <section className="mb-6 rounded-3xl border-4 border-kwk-black bg-kwk-green p-6 text-kwk-black shadow-[8px_8px_0_#e8ff3e] sm:p-8">
+        <p className="text-sm font-bold uppercase tracking-[0.18em] text-kwk-black">
+          Gather together
         </p>
-      </div>
+        <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-4xl">
+          Events at {community.name}
+        </h1>
+        <p className="mt-3 max-w-2xl text-kwk-black/80">
+          Meet people, learn something new, and take part in what&apos;s next.
+        </p>
+      </section>
 
       <CommunityNav slug={community.slug} activeTab="events" />
 
-      <div className="mb-8">
-        <NewEventForm communityId={community.id}/>
+      <div className="mb-6 flex justify-end">
+        <NewEventForm communityId={community.id} />
       </div>
 
-      {/* ====================================================== */}
-      {/* PLACEHOLDER: Events list will go here.                 */}
-      {/* See Tickets #2, #5, and #9.                            */}
-      {/* ====================================================== */}
-      {/* <div className="rounded-lg border-2 border-dashed border-gray-300 bg-white p-12 text-left"> */}
-      <div>
-      {communityEvents.map((event) => {
+      <div className="grid gap-5 md:grid-cols-2">
+        {communityEvents.map((event) => {
           const rsvpCount = rsvpCountsByEventId.get(event.id) ?? 0;
           const isAttending = currentUserRSVPEventIds.has(event.id);
 
@@ -97,17 +95,43 @@ export default async function EventsPage({ params }: CommunityPageProps) {
           const buttonDisabled = !currUserId || isAttending;
 
           return (
-            <article key={event.id}>
-              <div className="rounded-lg border-2 border-dashed border-gray-300 bg-white p-12 m-5 text-left">
-                <h2 className="text-lg font-bold text-gray-700">{event.name}</h2>
-                <p className="text-lg font-medium text-blue-400">{event.description}</p>
-                <p className="text-lg font-medium text-blue-400">Start: {event.startTime.toLocaleString()}</p>
-                <p className="text-lg font-medium text-blue-400">End: {event.endTime.toLocaleString()}</p>
-                <p>{rsvpCount} attending</p>
-                <form method="POST" action={`/api/events/${event.id}/rsvp`}>
-                  <Button label={buttonLabel} type="submit" disabled={buttonDisabled} />
-                </form>
+            <article
+              key={event.id}
+              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-kwk-luna hover:shadow-lg"
+            >
+              <div className="mb-4 flex items-start justify-between gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-kwk-luna text-xl">
+                  📅
+                </div>
+                <span className="rounded-full bg-kwk-yellow/30 px-3 py-1 text-xs font-bold text-kwk-space">
+                  {rsvpCount} attending
+                </span>
               </div>
+              <h2 className="text-lg font-bold text-slate-900">{event.name}</h2>
+              <p className="mt-2 flex-1 text-sm leading-6 text-slate-600">
+                {event.description}
+              </p>
+              <dl className="my-5 space-y-2 rounded-xl bg-slate-50 p-4 text-sm">
+                <div className="flex gap-2">
+                  <dt className="font-bold text-slate-700">Starts</dt>
+                  <dd className="text-slate-500">
+                    {event.startTime.toLocaleString()}
+                  </dd>
+                </div>
+                <div className="flex gap-2">
+                  <dt className="font-bold text-slate-700">Ends</dt>
+                  <dd className="text-slate-500">
+                    {event.endTime.toLocaleString()}
+                  </dd>
+                </div>
+              </dl>
+              <form method="POST" action={`/api/events/${event.id}/rsvp`}>
+                <Button
+                  label={buttonLabel}
+                  type="submit"
+                  disabled={buttonDisabled}
+                />
+              </form>
             </article>
           );
         })}

@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import CommunityNav from "@/components/CommunityNav";
 import NewPostForm from "@/components/NewPostForm";
 import ResourceSearch from "@/components/ResourceSearch";
+import Link from "next/link";
 import type { CommunityPageProps } from "@/types";
 
 // ============================================================
@@ -53,155 +54,82 @@ export default async function CommunityPage({ params }: CommunityPageProps) {
 
   return (
     <div>
-        <div className="mb-8 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">        <div>
-          <h1 className="text-3xl font-bold text-gray-900">{community.name}</h1>
-          <p className="mt-2 text-gray-600">{community.description}</p>
+      <section className="mb-6 overflow-hidden rounded-3xl border border-kwk-luna bg-gradient-to-br from-kwk-luna via-white to-kwk-yellow/30 p-6 shadow-sm sm:p-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-2xl">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-kwk-purple">
+              Community
+            </p>
+            <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+              {community.name}
+            </h1>
+            <p className="mt-3 text-base leading-7 text-slate-600">
+              {community.description}
+            </p>
+          </div>
+          <NewPostForm communityId={community.id} />
         </div>
-
-        <NewPostForm communityId={community.id} />
-      </div>
+      </section>
 
       <CommunityNav slug={community.slug} activeTab="home" />
 
-      {/* two column wrapper  */}
-
-      <div className="grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]">
-        <section className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-xl font-semibold text-gray-900">Community Posts</h2>
-
-              {communityPosts.length === 0 ? (
-                <p className="mt-4 text-sm text-gray-500">
-                  No posts have been shared in this community yet.</p>
-              ) : (
-                <ul className="mt-4 divide-y divide-gray-200">
-                  {communityPosts.map((post) => (
-                    <li key={post.id} className="py-4 first:pt-0 last:pb-0">
-                      <h3 className="text-lg font-medium text-gray-900">
-                        {post.title}
-                      </h3>
-                      <p className="mt-1 text-sm text-gray-500">
-                        By {post.authorName} &middot;{" "}
-                        {post.createdAt.toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              )}
-        </section>
-        <aside className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-
-
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <h2 className="text-xl font-semibold text-gray-900">
-              Helpful Resources
-            </h2>
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)]">
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-kwk-green">
+                Discover
+              </p>
+              <h2 className="mt-1 text-xl font-bold text-slate-900">
+                Helpful resources
+              </h2>
+            </div>
             <NewResourceForm communityId={community.id} />
           </div>
 
-          {communityResources.length > 0 ? (
-            <div className="space-y-3">
-              {communityResources.map((resource) => (
-                <a
-                  key={resource.id}
-                  href={resource.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block rounded-lg border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
-                >
-                  <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600">
-                    {resource.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-gray-600">
-                    {resource.description}
-                  </p>
-                  <span className="mt-3 block break-all text-sm font-medium text-blue-600">
-                    {resource.url}
-                  </span>
-                </a>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-lg border border-gray-200 bg-white p-6 text-center">
-              <p className="text-sm text-gray-500">
-                No resources have been shared yet.
-              </p>
-            </div>
-          )}
-        </aside>
+          <ResourceSearch resources={communityResources} />
+        </section>
 
-      </div>
-
-      {/* <section className="mb-8">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold text-gray-900">
-            Helpful Resources
-          </h2>
-          <NewResourceForm communityId={community.id} />
-        </div>
-
-        <ResourceSearch resources={communityResources} />
-        {communityResources.length > 0 ? (
-          <div className="space-y-3">
-            {communityResources.map((resource) => (
-              <a
-                key={resource.id}
-                href={resource.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-lg border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <h3 className="text-lg font-semibold text-gray-900 hover:text-blue-600">
-                  {resource.title}
-                </h3>
-                <p className="mt-2 text-sm text-gray-600">
-                  {resource.description}
-                </p>
-                <span className="mt-3 block break-all text-sm font-medium text-blue-600">
-                  {resource.url}
-                </span>
-              </a>
-            ))}
-          </div>
-        ) : (
-          <div className="rounded-lg border border-gray-200 bg-white p-6 text-center">
-            <p className="text-sm text-gray-500">
-              No resources have been shared yet.
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+          <div className="mb-5">
+            <p className="text-xs font-bold uppercase tracking-wider text-kwk-purple">
+              Latest conversations
             </p>
+            <h2 className="mt-1 text-xl font-bold text-slate-900">
+              Community posts
+            </h2>
           </div>
-        )}
-      </section>
 
-      <section className="mt-8 rounded-lg border border-gray-200 bg-white p-6">
-        <h2 className="text-xl font-semibold text-gray-900">Community Posts</h2>
-
-        {communityPosts.length === 0 ? (
-          <p className="mt-4 text-sm text-gray-500">
-            No posts have been shared in this community yet.
-          </p>
-        ) : (
-          <ul className="mt-4 divide-y divide-gray-200">
-            {communityPosts.map((post) => (
-              <li key={post.id} className="py-4 first:pt-0 last:pb-0">
-                <h3 className="text-lg font-medium text-gray-900">
-                  {post.title}
-                </h3>
-                <p className="mt-1 text-sm text-gray-500">
-                  By {post.authorName} &middot;{" "}
-                  {post.createdAt.toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section> */}
+          {communityPosts.length === 0 ? (
+            <p className="rounded-xl border border-dashed border-slate-300 p-8 text-center text-sm text-slate-500">
+              No posts have been shared in this community yet.
+            </p>
+          ) : (
+            <ul className="space-y-3">
+              {communityPosts.map((post) => (
+                <li key={post.id}>
+                  <Link
+                    href={`/${community.slug}/posts/${post.id}`}
+                    className="group block rounded-xl border border-slate-200 p-4 transition hover:border-kwk-luna hover:bg-kwk-luna/50"
+                  >
+                    <h3 className="font-bold text-slate-900 transition group-hover:text-kwk-space">
+                      {post.title}
+                    </h3>
+                    <p className="mt-1.5 text-xs font-medium text-slate-500">
+                      By {post.authorName} &middot;{" "}
+                      {post.createdAt.toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      </div>
     </div>
   );
 }

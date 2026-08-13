@@ -44,9 +44,9 @@ export default function NewCommunityForm() {
       <Button label="+ New Community" onClick={() => setOpen(true)} />
 
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="w-full max-w-md rounded-xl bg-white p-6 shadow-xl">
-            <h2 className="mb-4 text-xl font-semibold text-gray-900">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 px-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl border border-white/20 bg-white p-6 shadow-2xl">
+            <h2 className="mb-5 text-xl font-bold text-slate-900">
               Create a new community
             </h2>
 
@@ -54,7 +54,7 @@ export default function NewCommunityForm() {
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-bold text-slate-700"
                 >
                   Name
                 </label>
@@ -63,7 +63,7 @@ export default function NewCommunityForm() {
                   name="name"
                   type="text"
                   required
-                  className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-kwk-blue focus:bg-white focus:ring-4 focus:ring-kwk-luna"
                   placeholder="My Awesome Community"
                 />
               </div>
@@ -71,7 +71,7 @@ export default function NewCommunityForm() {
               <div>
                 <label
                   htmlFor="slug"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-bold text-slate-700"
                 >
                   Slug
                 </label>
@@ -81,10 +81,10 @@ export default function NewCommunityForm() {
                   type="text"
                   required
                   pattern="[a-z0-9-]+"
-                  className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-kwk-blue focus:bg-white focus:ring-4 focus:ring-kwk-luna"
                   placeholder="my-awesome-community"
                 />
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1.5 text-xs text-slate-500">
                   Lowercase letters, numbers, and hyphens only.
                 </p>
               </div>
@@ -92,7 +92,7 @@ export default function NewCommunityForm() {
               <div>
                 <label
                   htmlFor="description"
-                  className="block text-sm font-medium text-gray-900"
+                  className="block text-sm font-bold text-slate-700"
                 >
                   Description
                 </label>
@@ -101,7 +101,7 @@ export default function NewCommunityForm() {
                   name="description"
                   required
                   rows={3}
-                  className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  className="mt-1.5 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-kwk-blue focus:bg-white focus:ring-4 focus:ring-kwk-luna"
                   placeholder="What is this community about?"
                 />
               </div>

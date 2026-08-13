@@ -7,8 +7,10 @@ type CommentListProps = {
 export default function CommentList({ comments }: CommentListProps) {
   if (comments.length === 0) {
     return (
-      <div className="rounded-lg border border-dashed border-gray-300 bg-white p-6 text-center">
-        <p className="text-sm text-gray-500">No comments yet. Be the first to add one.</p>
+      <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center">
+        <p className="text-sm text-slate-500">
+          No comments yet. Be the first to add one.
+        </p>
       </div>
     );
   }
